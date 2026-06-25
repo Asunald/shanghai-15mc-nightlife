@@ -21,5 +21,5 @@ Deploy the `web/` folder as a static site.
 - `index.html`
 - `app.js`
 - `styles.css`
-- `data/hexes.geojson`
+- `data/hexes.json`
 - `data/metadata.json`

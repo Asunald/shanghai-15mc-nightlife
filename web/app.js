@@ -40,6 +40,20 @@ function scoreFor(feature, key = scoreKey()) {
   return Number(feature.properties[key] ?? feature.properties.cs ?? 0);
 }
 
+function featureFromHex(row) {
+  const ring = h3.cellToBoundary(row.h, true);
+  ring.push(ring[0]);
+  return {
+    type: "Feature",
+    id: row.h,
+    properties: row,
+    geometry: {
+      type: "Polygon",
+      coordinates: [ring],
+    },
+  };
+}
+
 function colorFor(score) {
   if (score >= 85) return "#b3261e";
   if (score >= 70) return "#d65f2f";
@@ -62,10 +76,6 @@ function styleFeature(feature) {
     fillColor: colorFor(score),
     fillOpacity: score > 0 ? 0.74 : 0.18,
   };
-}
-
-function modeScore(feature, mode, layer) {
-  return Number(feature.properties[`${modePrefix[mode]}_${layerSuffix[layer]}`] || 0);
 }
 
 function splitList(text) {
@@ -94,7 +104,8 @@ function renderDetails(feature) {
     <div class="pill-row">
       <span class="pill">H3 ${p.h}</span>
       <span class="pill">${String(p.a || "").replace("-", " ")}</span>
-      <span class="pill">Rent proxy: ${p.r || "n/a"}</span>
+      <span class="pill">Rent band: ${p.r || "n/a"} proxy</span>
+      <span class="pill">Metro: ${formatDistance(p.md)}</span>
     </div>
     <div class="score-grid">
       <div class="score-tile"><span>Baseline</span><strong>${Number(p.bs).toFixed(0)}</strong></div>
@@ -109,6 +120,13 @@ function renderDetails(feature) {
     <h3>Nightlife counts</h3>
     <p class="muted">Restaurants ${p.pr || 0}, bars/nightlife ${p.pb || 0}, culture venues ${p.pc || 0}, convenience ${p.pv || 0}, metro proxy ${p.pm || 0}.</p>
   `;
+}
+
+function formatDistance(value) {
+  const meters = Number(value);
+  if (!Number.isFinite(meters)) return "n/a";
+  if (meters >= 1000) return `${(meters / 1000).toFixed(1)} km`;
+  return `${Math.round(meters)} m`;
 }
 
 function escapeHtml(value) {
@@ -128,10 +146,11 @@ function attachFeature(feature, layer) {
       if (state.mapLayer) state.mapLayer.resetStyle(layer);
     },
   });
-  layer.bindTooltip(
-    `${feature.properties.d || "Shanghai"} · ${scoreFor(feature).toFixed(0)}`,
-    { sticky: true, direction: "top", opacity: 0.9 },
-  );
+  layer.bindTooltip(`${feature.properties.d || "Shanghai"} - ${scoreFor(feature).toFixed(0)}`, {
+    sticky: true,
+    direction: "top",
+    opacity: 0.9,
+  });
 }
 
 function renderLayer() {
@@ -220,7 +239,7 @@ function renderTransparency() {
   const limits = state.metadata.limitations.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
   el.innerHTML = `
     <ul>
-      <li>Hex count: ${state.metadata.hex_count.toLocaleString()} at H3 resolution ${state.metadata.h3_resolution}.</li>
+      <li>Displayed hexes: ${(state.metadata.web_hex_count || state.metadata.hex_count).toLocaleString()} of ${state.metadata.hex_count.toLocaleString()} modeled H3 cells at resolution ${state.metadata.h3_resolution}.</li>
       <li>Composite: ${escapeHtml(state.metadata.scoring.composite)}.</li>
     </ul>
     <h3>Sources</h3>
@@ -232,11 +251,14 @@ function renderTransparency() {
 
 async function init() {
   wireControls();
-  const [geojson, metadata] = await Promise.all([
-    fetch("./data/hexes.geojson").then((response) => response.json()),
+  const [hexPayload, metadata] = await Promise.all([
+    fetch("./data/hexes.json").then((response) => response.json()),
     fetch("./data/metadata.json").then((response) => response.json()),
   ]);
-  state.geojson = geojson;
+  state.geojson = {
+    type: "FeatureCollection",
+    features: hexPayload.hexes.map(featureFromHex),
+  };
   state.metadata = metadata;
   renderLayer();
   renderTransparency();

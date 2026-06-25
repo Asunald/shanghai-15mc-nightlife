@@ -10,6 +10,7 @@ data/processed/poi_catalog.csv
 data/processed/grid_scores.csv
 data/processed/shanghai_15mc_h3_track_b.geojson
 web/data/shanghai_15mc_h3_track_b.geojson
+web/data/hexes.geojson
 
 # Local temp files
 tmp/

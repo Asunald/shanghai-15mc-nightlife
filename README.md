@@ -21,7 +21,7 @@ python -m venv .venv
 .\.venv\Scripts\python.exe src\make_notebooks.py
 ```
 
-The generated analysis files are in `data/processed/`. The web app reads `web/data/hexes.geojson` and `web/data/metadata.json`.
+The generated analysis files are in `data/processed/`. The web app reads `web/data/hexes.json` and `web/data/metadata.json`.
 
 ## Public Repository Notes
 
@@ -57,6 +57,6 @@ Because the workspace does not include a routing API key, GTFS, or a routable st
 
 ## Deployment
 
-The `web/` folder is static. Deploy it to Vercel, Netlify, or GitHub Pages. Make sure `web/data/hexes.geojson` and `web/data/metadata.json` are included in the deployment.
+The `web/` folder is static. Deploy it to Vercel, Netlify, or GitHub Pages. Make sure `web/data/hexes.json` and `web/data/metadata.json` are included in the deployment.
 
 This repository also includes a GitHub Actions workflow at `.github/workflows/deploy-pages.yml` that publishes the `web/` folder to GitHub Pages on every push to `main`.

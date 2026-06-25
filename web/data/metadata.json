@@ -7,6 +7,7 @@
   },
   "h3_resolution": 8,
   "hex_count": 31043,
+  "web_hex_count": 17138,
   "mode_radii_m": {
     "walk": 1200,
     "bike": 3500,
@@ -144,6 +145,7 @@
     "Euclidean buffers are used as reproducible proxies for 15-minute isochrones because no routing API key was provided.",
     "Late-night transit is proxied by metro/transit POI access; timetable data should replace this in a production submission.",
     "Rent band is a district-level proxy for the required detail panel field, not a listing-derived rent model.",
+    "Metro distance is straight-line distance to the nearest metro-tagged POI, not a routed walking distance.",
     "Gaode/Amap POIs may contain duplicates, closed venues, and inconsistent category tags."
   ]
 }

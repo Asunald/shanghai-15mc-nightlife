@@ -220,7 +220,7 @@ Baseline score is the average of six universal needs using walk and bike scores 
 
 - `data/processed/h3_scores_track_b.csv`: full tabular H3 scores.
 - `data/processed/shanghai_15mc_h3_track_b.geojson`: complete H3 GeoJSON.
-- `web/data/hexes.geojson`: compact front-end payload.
+- `web/data/hexes.json`: compact front-end payload.
 - `web/data/metadata.json`: source, scoring, and limitation metadata for the transparency panel."""
         ),
     ]
