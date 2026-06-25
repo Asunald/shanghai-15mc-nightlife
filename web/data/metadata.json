@@ -1,0 +1,149 @@
+{
+  "project": "15-Minute Shanghai - Track B Entertainment & Nightlife",
+  "track": {
+    "id": "B",
+    "name": "Entertainment & Nightlife",
+    "question": "Is nightlife truly walkable for residents, or designed for destination travel? Map the transit-nightlife coverage gap."
+  },
+  "h3_resolution": 8,
+  "hex_count": 31043,
+  "mode_radii_m": {
+    "walk": 1200,
+    "bike": 3500,
+    "transit": 6000,
+    "car": 10000
+  },
+  "scoring": {
+    "baseline_indicators": [
+      "food",
+      "shopping",
+      "healthcare",
+      "education_culture",
+      "parks_public",
+      "transit"
+    ],
+    "baseline_weights": {
+      "food": 0.16666666666666666,
+      "shopping": 0.16666666666666666,
+      "healthcare": 0.16666666666666666,
+      "education_culture": 0.16666666666666666,
+      "parks_public": 0.16666666666666666,
+      "transit": 0.16666666666666666
+    },
+    "track_indicators": [
+      "restaurants",
+      "bars_night",
+      "culture_venues",
+      "convenience_24h",
+      "metro_late_proxy"
+    ],
+    "track_weights": {
+      "restaurants": 0.3,
+      "bars_night": 0.25,
+      "culture_venues": 0.2,
+      "convenience_24h": 0.15,
+      "metro_late_proxy": 0.1
+    },
+    "composite": "0.6 * walk/bike baseline mean + 0.4 * walk/bike/transit track mean",
+    "note": "Mode-specific scores are shown for comparison; car is not used in the main 15MC score."
+  },
+  "score_summary": {
+    "min": 0.0,
+    "max": 99.69,
+    "mean": 28.08,
+    "top_hexes": [
+      {
+        "h3": "88309959ddfffff",
+        "district": "静安区",
+        "score": 99.69,
+        "amenities": "壹号万利; 大衆酒场(西王小区店); Baker&Spice(东方众鑫店); 兰町艳域云国料理(博华广场店); 饿了么外卖自取柜(兴业太古汇店)"
+      },
+      {
+        "h3": "88309959d1fffff",
+        "district": "黄浦区",
+        "score": 99.67,
+        "amenities": "颗粒冰淇淋DippinDots(人民广场店); 7分甜上海来福士广场店; 福建馄饨王(暂停营业); 咖啡世家(仙乐斯广场店); 典兴阁(黄河路美食休闲街店)"
+      },
+      {
+        "h3": "88309959d5fffff",
+        "district": "黄浦区",
+        "score": 99.66,
+        "amenities": "SOLOX·SNOW51 (兴业太古汇店); 长乐川式面馆(中凯城市之光店); 八角屿咖啡; Manner Coffee(兴业太古汇店); 奇华饼家(兴业太古汇店)"
+      },
+      {
+        "h3": "88309959d9fffff",
+        "district": "静安区",
+        "score": 99.66,
+        "amenities": "新雅食品(雅州商务中心店); 京味水饺(蒙古路店); 上海海鸥烟酒有限公司(长新店); 吴茂兴本帮面(新闸路店); 米线面黄焖鸡(华祺苑店)"
+      },
+      {
+        "h3": "88309959dbfffff",
+        "district": "黄浦区",
+        "score": 99.64,
+        "amenities": "816sweet酒吧; 寻喜(上海南京路步行街店); 小炒地锅鸡; 老上海小吃; 黄焖鸡米饭"
+      },
+      {
+        "h3": "88309959d7fffff",
+        "district": "黄浦区",
+        "score": 99.62,
+        "amenities": "大世界地铁站4号口; 合味道小炒; 蛋卷日记(西藏中路店); 巴西烤肉饭脆皮鸡饭迪美店(福州路文化街店); 贝瑞咖啡(金钟广场店)"
+      },
+      {
+        "h3": "88309959d3fffff",
+        "district": "黄浦区",
+        "score": 99.62,
+        "amenities": "抓饭宝; 健康美味蒸出来(广北路店); 上海经典小吃(汉口店); 中华老字号(南京路步行街店); 炸鸡速递ChickenExpress"
+      },
+      {
+        "h3": "8830995835fffff",
+        "district": "静安区",
+        "score": 99.61,
+        "amenities": "天井酒馆; 四季翠粤港点心(泰禾大厦店); The Patio; 大米先生(静安国际中心店); Tims天好咖啡(静安国际中心店)"
+      },
+      {
+        "h3": "8830995989fffff",
+        "district": "黄浦区",
+        "score": 99.58,
+        "amenities": "有一只柴; 欧陆法式餐厅(茂名南路店); LA MATCHA抹茶吧(进贤小区店); 木聆茶舍(暂停营业); 清美鲜家石门一路店"
+      },
+      {
+        "h3": "883099598bfffff",
+        "district": "黄浦区",
+        "score": 99.58,
+        "amenities": "朱雀打边炉(淮海店); ALFEEHOMECOFFEE艾神家咖啡; 阿帅菜饭骨头汤(淮海中路店); SOBER SOCIETY(装修中); gaga(k11店)"
+      }
+    ]
+  },
+  "data_sources": [
+    {
+      "name": "Gaode/Amap POI shapefiles, Shanghai 2023",
+      "file": "2023_Shp/Shp/*.shp",
+      "used_for": "POI categories, district names, coordinates, and collection timestamps.",
+      "limitations": "Point POI data only; no real network travel time, opening hours, or rating fields."
+    },
+    {
+      "name": "Derived 500 m analysis grid",
+      "file": "data/processed/grid_cells.csv",
+      "used_for": "Spatial sampling frame for 15-minute proximity scoring.",
+      "limitations": "Grid is generated from POI extent rather than a municipal boundary polygon."
+    },
+    {
+      "name": "Derived 15-minute mode buffers",
+      "file": "data/processed/grid_scores.csv",
+      "used_for": "Walk, bike, transit, and car accessibility proxies using mode-specific radii.",
+      "limitations": "Euclidean buffers approximate isochrones because no routing API key is included."
+    },
+    {
+      "name": "Uber H3 indexing",
+      "file": "data/processed/shanghai_15mc_h3_track_b.geojson",
+      "used_for": "Resolution-8 hex aggregation for the web map.",
+      "limitations": "Aggregation uses grid centroids and mean scores within each H3 cell."
+    }
+  ],
+  "limitations": [
+    "Euclidean buffers are used as reproducible proxies for 15-minute isochrones because no routing API key was provided.",
+    "Late-night transit is proxied by metro/transit POI access; timetable data should replace this in a production submission.",
+    "Rent band is a district-level proxy for the required detail panel field, not a listing-derived rent model.",
+    "Gaode/Amap POIs may contain duplicates, closed venues, and inconsistent category tags."
+  ]
+}

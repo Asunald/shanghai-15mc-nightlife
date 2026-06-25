@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>15MC Shanghai - Nightlife Access</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIINfQphNMD9GqK+4kG7tq9kGQd6QfyCjN4="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="map-stage" aria-label="Shanghai H3 accessibility map">
+        <div id="map"></div>
+        <div class="loading" id="loading">Loading Shanghai H3 scores...</div>
+      </section>
+
+      <aside class="panel" aria-label="Map controls and details">
+        <header class="panel-header">
+          <p class="eyebrow">Track B · Entertainment & Nightlife</p>
+          <h1>15-Minute Shanghai</h1>
+          <p class="subtitle">Baseline livability plus nightlife access, aggregated to H3 resolution 8.</p>
+        </header>
+
+        <section class="control-group">
+          <div class="label-row">
+            <span>Travel Mode</span>
+          </div>
+          <div class="segmented" id="modeControls">
+            <button class="active" data-mode="walk" title="Walking proxy">Walk</button>
+            <button data-mode="bike" title="Cycling proxy">Bike</button>
+            <button data-mode="transit" title="Transit proxy">Transit</button>
+            <button data-mode="car" title="Car comparison only">Car</button>
+          </div>
+        </section>
+
+        <section class="control-group">
+          <div class="label-row">
+            <span>Layer</span>
+          </div>
+          <div class="segmented" id="layerControls">
+            <button class="active" data-layer="composite">Composite</button>
+            <button data-layer="baseline">Baseline</button>
+            <button data-layer="track">Nightlife</button>
+          </div>
+        </section>
+
+        <section class="control-group">
+          <div class="label-row">
+            <span>Where to live recommender</span>
+            <span id="recommendCount">Top 10</span>
+          </div>
+          <label class="slider-row">
+            <span>Daily needs</span>
+            <input id="baselineWeight" type="range" min="0" max="100" value="60" />
+            <output id="baselineWeightOut">60</output>
+          </label>
+          <label class="slider-row">
+            <span>Nightlife</span>
+            <input id="trackWeight" type="range" min="0" max="100" value="40" />
+            <output id="trackWeightOut">40</output>
+          </label>
+          <button class="primary" id="findTop">Highlight best hexes</button>
+        </section>
+
+        <section class="details" id="details">
+          <p class="eyebrow">Selected Hex</p>
+          <h2>Click a hexagon</h2>
+          <p class="muted">Inspect amenities, district, rent-band proxy, and mode-specific scores.</p>
+        </section>
+
+        <section class="legend">
+          <p class="eyebrow">Score</p>
+          <div class="legend-bar"></div>
+          <div class="legend-labels">
+            <span>0</span><span>50</span><span>100</span>
+          </div>
+        </section>
+
+        <details class="transparency">
+          <summary>Data transparency</summary>
+          <div id="transparencyContent"></div>
+        </details>
+      </aside>
+    </main>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

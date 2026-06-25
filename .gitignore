@@ -1,0 +1,18 @@
+.venv/
+__pycache__/
+*.pyc
+
+# Large raw course data cannot be pushed to GitHub
+2023_Shp/
+
+# Large intermediate artifacts not needed for the public repo
+data/processed/poi_catalog.csv
+data/processed/grid_scores.csv
+data/processed/shanghai_15mc_h3_track_b.geojson
+web/data/shanghai_15mc_h3_track_b.geojson
+
+# Local temp files
+tmp/
+
+# Course brief kept locally
+shanghai_15min_brief.pdf
