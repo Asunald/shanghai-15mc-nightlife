@@ -71,10 +71,10 @@ function styleFeature(feature) {
   const selected = state.selectedId === id;
   return {
     color: selected ? "#111827" : recommended ? "#083344" : "#ffffff",
-    weight: selected ? 2.2 : recommended ? 1.6 : 0.35,
-    opacity: selected || recommended ? 0.95 : 0.55,
+    weight: selected ? 2.4 : recommended ? 1.7 : 0.16,
+    opacity: selected || recommended ? 0.95 : 0.24,
     fillColor: colorFor(score),
-    fillOpacity: score > 0 ? 0.74 : 0.18,
+    fillOpacity: selected ? 0.56 : recommended ? 0.46 : score > 0 ? 0.28 : 0.05,
   };
 }
 
@@ -141,7 +141,7 @@ function escapeHtml(value) {
 function attachFeature(feature, layer) {
   layer.on({
     click: () => updateDetails(feature),
-    mouseover: () => layer.setStyle({ weight: 1.3, opacity: 0.85 }),
+    mouseover: () => layer.setStyle({ weight: 1.1, opacity: 0.7, fillOpacity: 0.44 }),
     mouseout: () => {
       if (state.mapLayer) state.mapLayer.resetStyle(layer);
     },
